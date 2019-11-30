@@ -16,9 +16,9 @@ class RemoteService : Service() {
         override fun test(text : String){
             Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
         }
-        override fun randomColor(): String {
+        override fun randomColor() : Int{
             val color = Color.argb(255, (0..255).random(), (0..255).random(), (0..255).random())
-            return color.toString()
+            return color
         }
     }
 }
