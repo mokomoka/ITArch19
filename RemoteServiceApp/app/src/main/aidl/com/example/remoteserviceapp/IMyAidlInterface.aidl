@@ -5,4 +5,5 @@ package com.example.remoteserviceapp;
 
 interface IMyAidlInterface {
     void test(String text);
+    String randomColor();
 }
