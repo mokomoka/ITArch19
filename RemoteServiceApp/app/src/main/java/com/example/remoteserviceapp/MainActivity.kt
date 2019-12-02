@@ -17,31 +17,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    override fun onStart() {
-        super.onStart()
-        Intent(this, RemoteService::class.java).also{ intent ->
-            bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
-        }
-        button.setOnClickListener {
-            try {
-                iRemoteService?.test(editText.text.toString())
-            } catch (e : RemoteException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    var iRemoteService : IMyAidlInterface? = null
-
-    val mConnection = object : ServiceConnection {
-        override fun onServiceConnected(className: ComponentName?, service: IBinder?) {
-            iRemoteService = IMyAidlInterface.Stub.asInterface(service)
-        }
-
-        override fun onServiceDisconnected(className: ComponentName?) {
-            Log.e("MainActivity", "Service has unexpectedly disconnected")
-            iRemoteService = null
-        }
-    }
 }

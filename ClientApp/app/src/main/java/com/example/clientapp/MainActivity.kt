@@ -1,15 +1,13 @@
 package com.example.clientapp
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
 import android.util.Log
+import android.widget.Toast
 import com.example.remoteserviceapp.IMyAidlInterface
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -35,6 +33,12 @@ class MainActivity : AppCompatActivity() {
             } catch (e : RemoteException) {
                 e.printStackTrace()
             }
+        }
+        textView.setOnClickListener {
+            val clipboardService = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("", textView.text.toString())
+            clipboardService.setPrimaryClip(clipData)
+            Toast.makeText(applicationContext, "Copied to the clipboard.", Toast.LENGTH_SHORT).show()
         }
     }
 
